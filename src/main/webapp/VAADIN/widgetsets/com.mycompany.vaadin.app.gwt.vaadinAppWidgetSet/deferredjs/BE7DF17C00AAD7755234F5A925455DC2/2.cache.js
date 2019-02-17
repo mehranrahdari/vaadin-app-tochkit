@@ -1,0 +1,1 @@
+$wnd.com_mycompany_vaadin_app_gwt_vaadinAppWidgetSet.runAsyncCallback2('Veb(1027,1,JNd);_.vc=function mtc(){egc((!Zfc&&(Zfc=new kgc),Zfc),this.b.e)};BFd(Vh)(2);\n//# sourceURL=com.mycompany.vaadin.app.gwt.vaadinAppWidgetSet-2.js\n')
