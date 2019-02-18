@@ -1,8 +1,7 @@
 package com.mycompany.vaadin.app;
 
-import com.mycompany.vaadin.app.ui.*;
-import com.mycompany.vaadin.app.gwt.client.*;
-
+import com.mycompany.vaadin.app.gwt.client.vaadinAppPersistToServerRpc;
+import com.mycompany.vaadin.app.ui.FormView;
 import com.vaadin.addon.touchkit.annotations.CacheManifestEnabled;
 import com.vaadin.addon.touchkit.annotations.OfflineModeEnabled;
 import com.vaadin.addon.touchkit.extensions.OfflineMode;
@@ -44,7 +43,7 @@ public class vaadinAppTouchKitUI extends UI {
         final TabBarView tabBarView = new TabBarView();
         final NavigationManager navigationManager = new NavigationManager();
         navigationManager.setCaption("Tab 1");
-        navigationManager.setCurrentComponent(new MenuView());
+        navigationManager.setCurrentComponent(new FormView());
         Tab tab;
         tab = tabBarView.addTab(navigationManager);
         tab.setIcon(FontAwesome.BOOK);

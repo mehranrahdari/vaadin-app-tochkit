@@ -1,9 +1,9 @@
 package com.mycompany.vaadin.app.ui;
 
-import com.vaadin.addon.touchkit.ui.DatePicker;
 import com.vaadin.addon.touchkit.ui.EmailField;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
+import com.vaadin.server.UserError;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -15,21 +15,21 @@ import com.vaadin.ui.TextField;
 public class FormView extends NavigationView {
 
     public FormView() {
-        setCaption("Form");
+        setCaption("Please Login");
         final VerticalComponentGroup content = new VerticalComponentGroup();
 
-        final TextField nameField = new TextField("Name");
-        nameField.setInputPrompt("Enter your name...");
+        final TextField nameField = new TextField("Username");
+        nameField.setInputPrompt("Enter your Username...");
+        nameField.setComponentError(new UserError("Username is required"));
         content.addComponent(nameField);
+ 
 
-        final DatePicker dateField = new DatePicker("Date of Birth");
-        content.addComponent(dateField);
+        final EmailField passwordField = new EmailField("Password");
+        passwordField.setInputPrompt("Enter your Password...");
+        passwordField.setComponentError(new UserError("Password is required"));
+        content.addComponent(passwordField);
 
-        final EmailField emailField = new EmailField("Email");
-        emailField.setInputPrompt("Enter your email address...");
-        content.addComponent(emailField);
-
-        final Button submitButton = new Button("Submit");
+        final Button submitButton = new Button("Login");
         submitButton.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
