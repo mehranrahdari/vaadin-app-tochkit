@@ -10,19 +10,21 @@ public class Employee implements IEmployee {
 
 	@Override
 	public void setUsername(String username) {
-		// TODO Auto-generated method stub
-		
+		this.username=username;
 	}
 
 	@Override
 	public void setPassword(String password) {
-		// TODO Auto-generated method stub
-		
+		this.password=password;
 	}
 
 	@Override
 	public int numberOfLoginClick() {
 		return numberOfLogin;
+	}
+	
+	public void setNumberOfLoginClick(int s) {
+		this.numberOfLogin=s;
 	}
 
 }

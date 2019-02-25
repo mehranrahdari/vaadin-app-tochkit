@@ -1,43 +1,71 @@
 package com.mycompany.vaadin.app.ui;
 
-import com.vaadin.addon.touchkit.ui.EmailField;
+import java.util.ArrayList;
+
+import com.mycompany.vaadin.app.Employee;
+import com.mycompany.vaadin.app.IEmployee;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.server.UserError;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 
 @SuppressWarnings("serial")
 public class FormView extends NavigationView {
 
-    public FormView() {
-        setCaption("Please Login");
-        final VerticalComponentGroup content = new VerticalComponentGroup();
+	public FormView() {
+		setCaption("Please Login");
+		final VerticalComponentGroup content = new VerticalComponentGroup();
 
-        final TextField nameField = new TextField("Username");
-        nameField.setInputPrompt("Enter your Username...");
-        nameField.setComponentError(new UserError("Username is required"));
-        content.addComponent(nameField);
- 
+		final ArrayList<IEmployee> employeis = new ArrayList<IEmployee>();
+		final TextField nameField = new TextField("Username");
+		nameField.setInputPrompt("Enter your Username...");
+		nameField.setRequired(true);
+		nameField.setComponentError(new UserError("Username is required"));
+		content.addComponent(nameField);
 
-        final EmailField passwordField = new EmailField("Password");
-        passwordField.setInputPrompt("Enter your Password...");
-        passwordField.setComponentError(new UserError("Password is required"));
-        content.addComponent(passwordField);
+		final PasswordField passwordField = new PasswordField("Password");
+		//passwordField.setInputPrompt("Enter your Password...");
+		passwordField.setComponentError(new UserError("Password is required"));
+		passwordField.focus();
+		content.addComponent(passwordField);
 
-        final Button submitButton = new Button("Login");
-        submitButton.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show("Thanks!");
-            }
-        });
+		passwordField.setRequired(true);
 
-        setContent(new CssLayout(content, submitButton));
-    }
+		final Label label = new Label();
+		label.setStyleName("center");
+		content.addComponent(label);
+
+		final Button submitButton = new Button("Login");
+		submitButton.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+					passwordField.validate();
+
+					IEmployee employee = new Employee();
+					employee.setPassword(passwordField.getValue());
+					employee.setUsername(nameField.getValue());
+					employeis.add(employee);
+					label.setValue("You Clicked " + String.valueOf(employeis.size()) + " time(s) on login button");
+
+					//Notification.show(String.valueOf(employeis.size()));
+				} catch (InvalidValueException e) {
+					//Notification.show("Password is required");
+					label.setValue("Password is required");
+				}
+			}
+		});
+
+		setContent(new CssLayout(content, submitButton));
+	}
 
 }
