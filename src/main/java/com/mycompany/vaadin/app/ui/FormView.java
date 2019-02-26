@@ -15,6 +15,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 
 @SuppressWarnings("serial")
@@ -32,7 +33,7 @@ public class FormView extends NavigationView {
 		content.addComponent(nameField);
 
 		final PasswordField passwordField = new PasswordField("Password");
-		//passwordField.setInputPrompt("Enter your Password...");
+		// passwordField.setInputPrompt("Enter your Password...");
 		passwordField.setComponentError(new UserError("Password is required"));
 		passwordField.focus();
 		content.addComponent(passwordField);
@@ -42,6 +43,11 @@ public class FormView extends NavigationView {
 		final Label label = new Label();
 		label.setStyleName("center");
 		content.addComponent(label);
+
+		final Table table = new Table();
+		// Define two columns for the built-in container
+		table.addContainerProperty("Username", String.class, null);
+		table.addContainerProperty("Password", String.class, null);
 
 		final Button submitButton = new Button("Login");
 		submitButton.addClickListener(new ClickListener() {
@@ -56,16 +62,23 @@ public class FormView extends NavigationView {
 					employee.setUsername(nameField.getValue());
 					employeis.add(employee);
 					label.setValue("You Clicked " + String.valueOf(employeis.size()) + " time(s) on login button");
-
-					//Notification.show(String.valueOf(employeis.size()));
+					int i = 1;
+					for (IEmployee emp : employeis) {
+						table.addItem(new Object[] { emp.getUsername(), emp.getPassword() }, i);
+						i++;
+					}
+					// Show exactly the currently contained rows (items)
+					table.setPageLength(table.size());
+					// Notification.show(String.valueOf(employeis.size()));
 				} catch (InvalidValueException e) {
-					//Notification.show("Password is required");
+					// Notification.show("Password is required");
 					label.setValue("Password is required");
 				}
 			}
 		});
-
-		setContent(new CssLayout(content, submitButton));
+		content.addComponent(new CssLayout(submitButton));
+		content.addComponent(table);
+		setContent(new CssLayout(content));
 	}
 
 }

@@ -23,6 +23,14 @@ public class Employee implements IEmployee {
 		return numberOfLogin;
 	}
 	
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 	public void setNumberOfLoginClick(int s) {
 		this.numberOfLogin=s;
 	}

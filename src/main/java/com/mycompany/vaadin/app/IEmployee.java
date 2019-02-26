@@ -5,5 +5,9 @@ public interface IEmployee {
 
 	void setPassword(String password);
 
+	String getPassword();
+	
+	String getUsername();
+
 	int numberOfLoginClick();
 }
